@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio Pelicula</title>
+  </head>
+  <body>
+    <div>
+      <h2>Pelicula que vere hoy!!!</h2>
+      <button type="button" onclick="getPeliculaAleatoriaAhora()">
+        Dime que pelicula veré hoy
+      </button>
+    </div>
+
+    <div>
+      <h2>Listado de pokemones</h2>
+      <select id="listPokemones" onchange="getDataPokemon(this.value)"></select>
+    </div>
+  </body>
+  <script src="assets/js/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {});
+
+    function getPeliculaAleatoriaAhora() {
+      console.log("Inicio de peticion ajax");
+
+      $.ajax({
+        url: "https://www.codigo-alfa.cl/aglo/Tester/peliculaAleatoria",
+        method: "GET",
+        success: function (data) {
+          console.log(data);
+        },
+      });
+    }
+
+    function getPokemones() {
+      console.log("Inicio de peticion ajax");
+
+      $.ajax({
+        url: "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0",
+        method: "GET",
+        success: function (data) {
+          //  console.log(data);
+          const pokemonesList = data.results;
+          //console.log(pokemonesList[72].name);
+
+          let cadenaOption = "<option>Listado Pokemon</option>";
+
+          pokemonesList.map((data, index) => {
+            console.log(data, index);
+            console.log(data.name);
+            cadenaOption +=
+              '<option value="' + data.url + '">' + data.name + "</option>";
+
+            $("#listPokemones").html(cadenaOption);
+          });
+        },
+      });
+    }
+
+    function getDataPokemon(valorSeleccionadoURL) {
+      console.log(valorSeleccionadoURL);
+      $.ajax({
+        url: valorSeleccionadoURL,
+        method: "GET",
+        success: function (data) {
+          console.log(data);
+        },
+      });
+    }
+
+    getPokemones();
+  </script>
+</html>

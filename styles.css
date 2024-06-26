@@ -1,0 +1,14 @@
+body {
+  background-image: url("assets/movies.jpg");
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+}
+
+.frame {
+  width: 70rem;
+}
+
+.card-body {
+  background-color: #ffffff;
+  border-radius: 1em;
+}
